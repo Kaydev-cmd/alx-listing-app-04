@@ -1,8 +1,30 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { ReviewsProps } from "@/interfaces";
 import { FaStar } from "react-icons/fa";
+import axios from "axios";
+import { ReviewsSectionProps } from "@/interfaces";
 
-const ReviewSection: React.FC<{ reviews: ReviewsProps[] }> = ({ reviews }) => {
+const ReviewSection: React.FC<ReviewsSectionProps> = ({ propertyId }) => {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `/api/properties/${propertyId}/reviews`
+        );
+        setReviews(response.data);
+      } catch (error) {
+        console.error("Error fetching reviews:", reviews);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReviews();
+  }, [propertyId]);
+
   return (
     <div className="mt-2 p-6">
       <h3 className="text-2xl font-semibold mb-4">Reviews</h3>
