@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-import { PROPERTYLISTINGSAMPLE } from "@/constants";
 import { useRouter } from "next/router";
-import { REVIEWS } from "@/constants";
 import PropertyDetail from "@/components/property/PropertyDetail";
-import BookingSection from "@/components/property/BookingSection";
-import ReviewSection from "@/components/property/ReviewSection";
 import axios from "axios";
 
 export default function PropertyPage() {
@@ -26,19 +22,17 @@ export default function PropertyPage() {
         setLoading(false);
       }
     };
-  }, []);
-  
-  // const property = PROPERTYLISTINGSAMPLE.find((item) => item.id === id);
 
-  // if (!property) return <p>Property not found</p>;
+    fetchProperty();
+  }, [id]);
 
-  return (
-    <div>
-      <div className="flex items-center p-8">
-        <PropertyDetail property={property} />
-        <BookingSection price={property.price} />
-      </div>
-      <ReviewSection reviews={REVIEWS} />
-    </div>
-  );
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!property) {
+    return <p>Property not found</p>;
+  }
+
+  return <PropertyDetail property={property} />;
 }
