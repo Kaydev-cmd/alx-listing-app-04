@@ -81,6 +81,10 @@ export interface ReviewsProps {
   comment: string;
 }
 
+export interface ReviewsSectionProps {
+  propertyId: string;
+}
+
 export interface OrderSummaryProps {
   propertyName: string;
   price: number;
