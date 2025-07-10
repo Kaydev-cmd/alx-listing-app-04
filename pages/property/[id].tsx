@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import PropertyDetail from "@/components/property/PropertyDetail";
 import axios from "axios";
+import ReviewSection from "@/components/property/ReviewSection";
 
 export default function PropertyPage() {
   const router = useRouter();
@@ -34,5 +35,10 @@ export default function PropertyPage() {
     return <p>Property not found</p>;
   }
 
-  return <PropertyDetail property={property} />;
+  return (
+    <>
+      <PropertyDetail property={property} />
+      <ReviewSection propertyId={id as string} />
+    </>
+  );
 }
