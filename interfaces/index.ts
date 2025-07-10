@@ -75,6 +75,8 @@ export interface LogosProps {
 }
 
 export interface ReviewsProps {
+  id: number;
+  propertyId: string;
   avatar: string;
   name: string;
   rating: number;
