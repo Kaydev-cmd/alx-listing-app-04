@@ -1,12 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { ReviewsProps } from "@/interfaces";
+import { ReviewsProps, ReviewsSectionProps } from "@/interfaces";
 import { FaStar } from "react-icons/fa";
 import axios from "axios";
-import { ReviewsSectionProps } from "@/interfaces";
 
 const ReviewSection: React.FC<ReviewsSectionProps> = ({ propertyId }) => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<ReviewsProps[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,20 +16,27 @@ const ReviewSection: React.FC<ReviewsSectionProps> = ({ propertyId }) => {
         );
         setReviews(response.data);
       } catch (error) {
-        console.error("Error fetching reviews:", reviews);
+        console.error("Error fetching reviews:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchReviews();
+
+    if (propertyId) {
+      fetchReviews();
+    }
   }, [propertyId]);
+
+  if (loading) {
+    return <p>Loading reviews...</p>;
+  }
 
   return (
     <div className="mt-2 p-6">
       <h3 className="text-2xl font-semibold mb-4">Reviews</h3>
       <div className="grid grid-cols-2 gap-2">
-        {reviews.map((review, index) => (
-          <div key={index} className="p-4 mb-4 w-[600px]">
+        {reviews.map((review) => (
+          <div key={review.id} className="p-4 mb-4 w-[600px]">
             <div className="flex items-center mb-2">
               <img
                 src={review.avatar}
