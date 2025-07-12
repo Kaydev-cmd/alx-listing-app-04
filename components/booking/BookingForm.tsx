@@ -1,6 +1,22 @@
 import React from "react";
+import axios from "axios";
+import { useState } from "react";
 
 const BookingForm = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    cardNumber: "",
+    expirationDate: "",
+    cvv: "",
+    billingAddress: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   return (
     <div className="bg-white p-6 shadow-md rounded-lg">
       <h2 className="text-xl font-semibold mb-6">Contact Details</h2>
