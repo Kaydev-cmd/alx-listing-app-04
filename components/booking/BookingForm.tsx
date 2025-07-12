@@ -35,7 +35,7 @@ const BookingForm = () => {
   return (
     <div className="bg-white p-6 shadow-md rounded-lg">
       <h2 className="text-xl font-semibold mb-6">Contact Details</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* Contact Information */}
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -151,9 +151,14 @@ const BookingForm = () => {
         </div>
 
         {/* Submit Button */}
-        <button className="mt-6 bg-green-500 text-white py-2 px-4 rounded-md w-full hover:bg-green-600 transition-colors cursor-pointer">
-          Confirm & Pay
+        <button
+          type="submit"
+          disabled={loading}
+          className="mt-6 bg-green-500 text-white py-2 px-4 rounded-md w-full hover:bg-green-600 transition-colors cursor-pointer"
+        >
+          {loading ? "Processing..." : "Click & Pay"}
         </button>
+        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </form>
     </div>
   );
