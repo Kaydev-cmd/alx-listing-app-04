@@ -15,7 +15,22 @@ const BookingForm = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await axios.post("/api/bookings", formData);
+      alert("Booking confirmed!!");
+    } catch (error) {
+      setError("Failed to submit booking.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="bg-white p-6 shadow-md rounded-lg">
