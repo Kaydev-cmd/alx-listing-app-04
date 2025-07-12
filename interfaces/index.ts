@@ -103,5 +103,11 @@ export interface BookingFormProps {
   cardNumber: string;
   expirationDate: string;
   cvv: string;
-  billingAddress: string;
+  billingAddress: {
+    streetAddress: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
 }
