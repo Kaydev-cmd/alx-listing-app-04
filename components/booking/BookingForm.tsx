@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { BookingFormProps } from "@/interfaces";
 
 const BookingForm = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<BookingFormProps>({
     firstName: "",
     lastName: "",
     email: "",
@@ -16,6 +17,39 @@ const BookingForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateForm = () => {
+    const {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      cardNumber,
+      expirationDate,
+      cvv,
+      billingAddress,
+    } = formData;
+
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phoneNumber ||
+      !cardNumber ||
+      !expirationDate ||
+      !cvv ||
+      !billingAddress
+    ) {
+      return "Please fill in all fields";
+    }
+    return null;
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
