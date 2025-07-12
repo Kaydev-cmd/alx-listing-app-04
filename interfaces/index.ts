@@ -94,3 +94,14 @@ export interface OrderSummaryProps {
   totalNights: number;
   startDate: string;
 }
+
+export interface BookingFormProps {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  cardNumber: string;
+  expirationDate: string;
+  cvv: string;
+  billingAddress: string;
+}
